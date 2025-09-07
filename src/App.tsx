@@ -4,21 +4,23 @@ type State = {
   pressedKey: string;
 };
 
-export class App extends React.Component<State> {
+export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     pressedKey: '',
   };
 
-  resizeHandler = (event: KeyboardEvent) => {
+  handleKeyUp = (event: KeyboardEvent) => {
+    // eslint-disable-next-line no-console
+    console.log(event.key);
     this.setState({ pressedKey: event.key });
   };
 
-  componentDidMount() {
-    window.addEventListener('keyup', this.resizeHandler);
+  componentDidMount(): void {
+    document.addEventListener('keyup', this.handleKeyUp);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.resizeHandler);
+  componentWillUnmount(): void {
+    document.removeEventListener('keyup', this.handleKeyUp);
   }
 
   render() {
